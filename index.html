@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Laivu Māja - kafejnīca un picērija, Rēzekne</title>
+<meta name="description" content="Laivu Māja - kafejnīca un picērija Rēzeknē, Ezera iela 5. Malkas krāsnī cepta pica un svaigi suši katru dienu. Atvērti 11:00-20:00.">
+<script>
+  (function(){
+    var d = document.documentElement;
+    d.classList.add('js');
+    var t = 'light';
+    try{ if(localStorage.getItem('lm-theme') === 'dark') t = 'dark'; }catch(e){}
+    d.setAttribute('data-theme', t);
+  })();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF6EE;
+    --panel:#F2E7D6;
+    --card:#FFFFFF;
+    --ink:#22160E;
+    --ink-soft:#6B5848;
+    --line:rgba(34,22,14,.15);
+    --red:#C4372A;
+    --red-hover:#A92D21;
+    --on-red:#FFF8EE;
+    --gold:#C98A2A;
+    --gold-deep:#9A6512;
+    --shadow:0 28px 55px -34px rgba(34,22,14,.4);
+    --font-head:'Playfair Display',Georgia,'Times New Roman',serif;
+    --font-body:'Inter','Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;
+    --maxw:1160px;
+    --fade:.25s;
+    --fade-theme:.45s;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"]{
+    --bg:#120D09;
+    --panel:#1A130D;
+    --card:#211910;
+    --ink:#F6ECDD;
+    --ink-soft:#BBA992;
+    --line:rgba(246,236,221,.16);
+    --red:#E2503F;
+    --red-hover:#F06A58;
+    --on-red:#1A0F09;
+    --gold:#E3A83B;
+    --gold-deep:#E3A83B;
+    --shadow:0 28px 55px -34px rgba(0,0,0,.85);
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;transition-delay:0s !important;}
+  }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color var(--fade-theme) ease,color var(--fade-theme) ease;}
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;transition:color var(--fade) ease,background-color var(--fade) ease,border-color var(--fade) ease,opacity var(--fade) ease;}
+  h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;margin:0;color:var(--ink);letter-spacing:.002em;}
+  p{margin:0;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;transition:color var(--fade) ease,background-color var(--fade) ease,border-color var(--fade) ease,opacity var(--fade) ease;}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  section[id]{scroll-margin-top:72px;}
+
+  .skip-link{position:absolute;left:-9999px;top:0;background:var(--red);color:var(--on-red);padding:.75rem 1.25rem;z-index:300;border-radius:0 0 8px 0;font-weight:600;}
+  .skip-link:focus{left:0;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem);}
+
+  .kicker{font-family:var(--font-body);font-size:.76rem;font-weight:600;color:var(--gold-deep);letter-spacing:.2em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.7rem;}
+  .kicker::before{content:"";width:26px;height:2px;border-radius:2px;background:var(--gold);display:inline-block;}
+
+  /* header */
+  header{position:sticky;top:0;z-index:200;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:background-color var(--fade-theme) ease,border-color var(--fade-theme) ease;}
+  .nav-row{display:flex;align-items:center;gap:1.5rem;padding-top:.7rem;padding-bottom:.7rem;}
+  .brand{display:flex;align-items:center;gap:.7rem;flex:none;}
+  .brand-logo{width:46px;height:46px;display:block;border-radius:50%;}
+  .brand-word{font-family:var(--font-head);font-size:1.5rem;font-style:italic;font-weight:600;line-height:1;white-space:nowrap;}
+  .brand-word small{display:block;font-family:var(--font-body);font-style:normal;font-size:.56rem;font-weight:600;letter-spacing:.22em;color:var(--ink-soft);margin-top:5px;text-transform:uppercase;}
+  nav.primary{display:flex;align-items:center;justify-content:center;gap:2rem;flex:1;}
+  nav.primary a{font-size:.9rem;font-weight:500;color:var(--ink-soft);position:relative;padding:.2rem 0;}
+  nav.primary a:hover{color:var(--ink);}
+  nav.primary a::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s ease;}
+  nav.primary a:hover::after{transform:scaleX(1);}
+  .header-actions{display:flex;align-items:center;gap:.75rem;margin-left:auto;}
+
+  .lang-switch{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;transition:border-color var(--fade-theme) ease;}
+  .lang-switch button{background:none;border:none;padding:.4rem .65rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--ink-soft);transition:background-color var(--fade) ease,color var(--fade) ease;}
+  .lang-switch button:hover{color:var(--ink);}
+  .lang-switch button[aria-pressed="true"]{background:var(--red);color:var(--on-red);}
+
+  .icon-btn{width:2.3rem;height:2.3rem;border-radius:50%;border:1px solid var(--line);background:none;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);flex:none;transition:border-color var(--fade) ease,color var(--fade) ease,background-color var(--fade) ease;}
+  .icon-btn:hover{border-color:var(--gold);color:var(--gold-deep);}
+  .icon-btn svg{width:1.05rem;height:1.05rem;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.55rem;border-radius:999px;font-weight:600;font-size:.88rem;letter-spacing:.02em;border:1px solid transparent;transition:background-color var(--fade) ease,color var(--fade) ease,border-color var(--fade) ease,box-shadow var(--fade) ease;white-space:nowrap;cursor:pointer;font-family:var(--font-body);}
+  .btn svg{width:1rem;height:1rem;flex:none;}
+  .btn-solid{background:var(--red);color:var(--on-red);box-shadow:0 14px 26px -14px rgba(196,55,42,.7);}
+  .btn-solid:hover{background:var(--red-hover);box-shadow:0 18px 30px -14px rgba(196,55,42,.8);}
+  .btn-line{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn-line:hover{background:var(--panel);border-color:var(--gold);}
+  .btn-sm{padding:.6rem 1.15rem;font-size:.82rem;}
+  .hero .btn-line{color:#fff;border-color:rgba(255,255,255,.5);}
+  .hero .btn-line:hover{background:rgba(255,255,255,.14);border-color:#fff;}
+
+  .menu-toggle{display:none;width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid var(--line);background:none;position:relative;flex:none;transition:border-color var(--fade) ease,background-color var(--fade) ease;}
+  .menu-toggle:hover{border-color:var(--gold);}
+  .menu-toggle i{position:absolute;left:50%;top:50%;width:18px;height:2px;margin-left:-9px;background:var(--ink);border-radius:2px;transition:transform .35s ease,opacity .25s ease,background-color var(--fade) ease;}
+  .menu-toggle i:nth-child(1){transform:translateY(-6px);}
+  .menu-toggle i:nth-child(3){transform:translateY(6px);}
+  .menu-toggle:hover i{background:var(--red);}
+  .menu-toggle[aria-expanded="true"] i:nth-child(1){transform:rotate(45deg);}
+  .menu-toggle[aria-expanded="true"] i:nth-child(2){opacity:0;}
+  .menu-toggle[aria-expanded="true"] i:nth-child(3){transform:rotate(-45deg);}
+
+  /* mobile + tablet menu panel */
+  .mobile-nav{position:fixed;inset:0;z-index:190;background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.5rem;padding:5.5rem clamp(1.5rem,6vw,4rem) 2.5rem;overflow-y:auto;
+    visibility:hidden;pointer-events:none;clip-path:circle(0px at calc(100% - 2.6rem) 2.2rem);
+    transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s linear .75s,background-color var(--fade-theme) ease;}
+  .mobile-nav.open{visibility:visible;pointer-events:auto;clip-path:circle(160% at calc(100% - 2.6rem) 2.2rem);
+    transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s linear 0s,background-color var(--fade-theme) ease;}
+  .m-link{font-family:var(--font-head);font-weight:600;font-style:italic;font-size:clamp(2rem,7vw,2.9rem);line-height:1.2;color:var(--ink);padding:.25rem 0;opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease,color var(--fade) ease;}
+  .m-link:hover{color:var(--red);}
+  .mobile-nav.open .m-link,.mobile-nav.open .m-extra{opacity:1;transform:none;transition-delay:calc(.3s + var(--i,0) * .07s);}
+  .mobile-nav.open .m-link:hover{transition-delay:0s;}
+  .m-extra{margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease;}
+  .m-contact{margin-top:1.6rem;color:var(--ink-soft);font-size:.92rem;opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease;}
+  .mobile-nav.open .m-contact{opacity:1;transform:none;transition-delay:.85s;}
+  .m-contact a{color:var(--ink);font-weight:600;}
+  .m-contact a:hover{color:var(--red);}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;min-height:clamp(600px,92vh,840px);display:flex;align-items:center;padding:clamp(4rem,9vw,7rem) 0;}
+  .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:linear-gradient(160deg,#241710,#5A3A1E);}
+  .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(22,13,8,.5) 0%,rgba(22,13,8,.66) 55%,rgba(22,13,8,.88) 100%),linear-gradient(90deg,rgba(22,13,8,.55) 0%,rgba(22,13,8,.1) 65%);}
+  .hero .wrap{position:relative;z-index:2;width:100%;}
+  .hero-copy{max-width:41rem;}
+  .hero-copy .kicker{color:#F0C777;}
+  .hero-copy .kicker::before{background:#F0C777;}
+  .hero-copy h1{color:#fff;font-size:clamp(2.5rem,5.8vw,4.6rem);line-height:1.06;font-weight:600;margin:1rem 0 1.2rem;text-shadow:0 2px 26px rgba(0,0,0,.35);}
+  .hero-copy h1 em{font-style:italic;color:#F0C777;font-weight:500;}
+  .hero-copy p.lede{font-size:clamp(1rem,1.5vw,1.15rem);color:rgba(255,255,255,.88);max-width:50ch;margin-bottom:1.5rem;}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;}
+  .chip{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .95rem;border:1px solid rgba(255,255,255,.3);border-radius:999px;color:#fff;font-size:.82rem;font-weight:500;background:rgba(255,255,255,.07);}
+  .chip svg{width:.95rem;height:.95rem;color:#F0C777;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;}
+  .hero-pause{position:absolute;right:clamp(1.25rem,4vw,3rem);bottom:1.8rem;z-index:3;width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(22,13,8,.5);color:#fff;display:flex;align-items:center;justify-content:center;transition:border-color var(--fade) ease,background-color var(--fade) ease;}
+  .hero-pause:hover{border-color:#fff;background:rgba(22,13,8,.78);}
+  .hero-pause svg{width:1rem;height:1rem;}
+
+  .strip{border-bottom:1px solid var(--line);background:var(--card);transition:background-color var(--fade-theme) ease,border-color var(--fade-theme) ease;}
+  .strip .wrap{padding-top:1.15rem;padding-bottom:1.15rem;display:flex;align-items:center;justify-content:center;gap:.7rem 2.4rem;flex-wrap:wrap;}
+  .strip-item{display:inline-flex;align-items:center;gap:.6rem;font-size:.9rem;font-weight:500;color:var(--ink);}
+  .strip-item svg{width:1.1rem;height:1.1rem;color:var(--red);flex:none;}
+  .strip-item a:hover{color:var(--red);}
+
+  section{padding:clamp(3.6rem,8vw,6.5rem) 0;transition:background-color var(--fade-theme) ease;}
+  .section-head{max-width:60ch;margin-bottom:clamp(2.2rem,4vw,3rem);}
+  .section-head h2,.about-grid h2,.contact-title{font-size:clamp(2rem,3.8vw,3.1rem);margin:.8rem 0 .9rem;line-height:1.12;}
+  .section-head p{color:var(--ink-soft);font-size:1.03rem;}
+  .panel{background:var(--panel);}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,6vw,5rem);align-items:center;}
+  .about-text{color:var(--ink-soft);font-size:1.04rem;max-width:56ch;margin-bottom:1.1rem;}
+  .about-note{margin-top:1.6rem;padding-left:1.2rem;border-left:3px solid var(--red);font-family:var(--font-head);font-style:italic;font-size:1.35rem;line-height:1.4;color:var(--ink);max-width:30ch;}
+  .fact-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:.6rem 1.8rem;transition:background-color var(--fade-theme) ease,border-color var(--fade-theme) ease;}
+  .fact{display:flex;gap:1.1rem;padding:1.4rem 0;border-bottom:1px solid var(--line);transition:border-color var(--fade-theme) ease;}
+  .fact:last-child{border-bottom:none;}
+  .fact-ic{width:2.8rem;height:2.8rem;border-radius:50%;background:color-mix(in srgb, var(--red) 12%, transparent);color:var(--red);display:flex;align-items:center;justify-content:center;flex:none;}
+  .fact-ic svg{width:1.4rem;height:1.4rem;}
+  .fact h3{font-size:1.25rem;margin-bottom:.2rem;}
+  .fact p{font-size:.92rem;color:var(--ink-soft);}
+
+  /* menu */
+  .menu-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);transition:border-color var(--fade-theme) ease;}
+  .menu-card{padding:2rem 1.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background-color var(--fade) ease,border-color var(--fade-theme) ease;}
+  .menu-card:hover{background:var(--card);}
+  .menu-icon{width:3rem;height:3rem;border-radius:50%;border:1px solid var(--gold);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem;transition:border-color var(--fade) ease,color var(--fade) ease,background-color var(--fade) ease;}
+  .menu-card:hover .menu-icon{background:var(--red);border-color:var(--red);color:var(--on-red);}
+  .menu-icon svg{width:1.4rem;height:1.4rem;}
+  .menu-card h3{font-size:1.3rem;margin-bottom:.45rem;}
+  .menu-card p{font-size:.92rem;color:var(--ink-soft);}
+  .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem;}
+  .tags li{font-size:.72rem;font-weight:500;padding:.2rem .6rem;border:1px solid var(--line);border-radius:999px;color:var(--ink-soft);transition:border-color var(--fade) ease,color var(--fade) ease;}
+  .menu-card:hover .tags li{border-color:var(--gold);color:var(--ink);}
+  .menu-note{margin-top:1.6rem;font-size:.9rem;color:var(--ink-soft);}
+
+  /* offers */
+  .offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,3vw,2rem);}
+  .offer{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:clamp(1.5rem,3vw,2rem);display:flex;flex-direction:column;transition:background-color var(--fade-theme) ease,border-color var(--fade-theme) ease;}
+  .offer .tag{align-self:flex-start;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.9rem;}
+  .offer h3{font-size:1.45rem;line-height:1.2;margin-bottom:.6rem;}
+  .offer p{color:var(--ink-soft);font-size:.95rem;}
+  .offer .big{font-family:var(--font-head);font-size:2.6rem;font-weight:600;color:var(--red);line-height:1;margin:1.1rem 0 .3rem;}
+  .offer .meta{margin-top:auto;padding-top:1rem;font-size:.82rem;color:var(--ink-soft);border-top:1px dashed var(--line);}
+  .offer-note{margin-top:1.6rem;font-size:.88rem;color:var(--ink-soft);text-align:center;}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:stretch;}
+  .contact-lede{color:var(--ink-soft);font-size:1.03rem;max-width:46ch;margin-bottom:1.8rem;}
+  .info-list{border-top:1px solid var(--line);margin-bottom:1.6rem;transition:border-color var(--fade-theme) ease;}
+  .info-item{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line);transition:border-color var(--fade-theme) ease;}
+  .info-item .label{font-size:.72rem;font-weight:600;color:var(--gold-deep);letter-spacing:.16em;text-transform:uppercase;padding-top:.3rem;}
+  .info-item .value a{font-weight:600;}
+  .info-item .value a:hover{color:var(--red);}
+  .btn-row{display:flex;flex-wrap:wrap;gap:.8rem;}
+  .call-card{background:var(--ink);color:var(--bg);border-radius:20px;padding:clamp(1.8rem,4vw,3rem);display:flex;flex-direction:column;justify-content:center;gap:1rem;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:background-color var(--fade-theme) ease,color var(--fade-theme) ease;}
+  .call-card::after{content:"";position:absolute;right:-70px;bottom:-70px;width:220px;height:220px;border-radius:50%;border:2px dashed color-mix(in srgb, var(--bg) 30%, transparent);}
+  .call-card .kicker{color:var(--gold);}
+  .call-card .kicker::before{background:var(--gold);}
+  [data-theme="dark"] .call-card .kicker{color:#9A6512;}
+  [data-theme="dark"] .call-card .kicker::before{background:#9A6512;}
+  .call-card h3{color:var(--bg);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.2;transition:color var(--fade-theme) ease;}
+  .call-num{font-family:var(--font-head);font-weight:600;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;color:var(--bg);transition:color var(--fade) ease;}
+  .call-num:hover{color:var(--gold);}
+  [data-theme="dark"] .call-num:hover{color:#9A6512;}
+  .call-card p{color:color-mix(in srgb, var(--bg) 75%, transparent);font-size:.95rem;}
+  .call-card .btn-solid{align-self:flex-start;margin-top:.4rem;}
+
+  /* footer */
+  footer{background:var(--panel);color:var(--ink);border-top:1px solid var(--line);transition:background-color var(--fade-theme) ease,color var(--fade-theme) ease,border-color var(--fade-theme) ease;}
+  .footer-main{padding:3rem 0 2rem;}
+  .footer-grid{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem;padding-bottom:2rem;border-bottom:1px solid var(--line);transition:border-color var(--fade-theme) ease;}
+  .footer-brand p{max-width:32ch;font-size:.9rem;color:var(--ink-soft);margin-top:1rem;}
+  .footer-links{display:flex;gap:3rem;flex-wrap:wrap;}
+  .footer-links h4{font-family:var(--font-body);font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.9rem;}
+  .footer-links a{display:block;color:var(--ink-soft);font-size:.92rem;margin-bottom:.5rem;}
+  .footer-links a:hover{color:var(--red);text-decoration:underline;}
+  .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;font-size:.82rem;color:var(--ink-soft);align-items:center;}
+  .footer-lang{display:flex;gap:.5rem;}
+  .footer-lang button{background:none;border:1px solid var(--line);color:var(--ink);padding:.3rem .65rem;border-radius:999px;font-size:.72rem;font-weight:600;transition:background-color var(--fade) ease,border-color var(--fade) ease,color var(--fade) ease;}
+  .footer-lang button:hover{border-color:var(--gold);}
+  .footer-lang button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--on-red);}
+
+  /* reveal on scroll */
+  .js .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease,background-color var(--fade-theme) ease,border-color var(--fade-theme) ease,color var(--fade-theme) ease;}
+  .js .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){ .js .reveal{opacity:1;transform:none;} }
+
+  /* tablet */
+  @media (max-width:1023px){
+    nav.primary{display:none;}
+    .menu-toggle{display:block;}
+    .header-actions .btn{display:none;}
+    .about-grid,.contact-grid{grid-template-columns:1fr;}
+    .menu-grid{grid-template-columns:repeat(2,1fr);}
+    .offer-grid{grid-template-columns:1fr;}
+  }
+  /* mobile */
+  @media (max-width:640px){
+    .lang-switch{display:none;}
+    .brand-word small{display:none;}
+    .brand-logo{width:42px;height:42px;}
+    .brand-word{font-size:1.4rem;}
+    .menu-grid{grid-template-columns:1fr;}
+    .info-item{grid-template-columns:1fr;gap:.2rem;}
+    .footer-grid{flex-direction:column;}
+    .hero-pause{bottom:1.5rem;}
+    .strip-item{font-size:.84rem;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="skip">Pāriet uz saturu</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="ic-pizza"><path d="M12 3C7.5 3 3.8 5 2.5 7.2L12 21l9.5-13.8C20.2 5 16.5 3 12 3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9.5" cy="9" r="1.3" fill="currentColor"/><circle cx="14.5" cy="9.8" r="1.2" fill="currentColor"/><circle cx="12" cy="14" r="1.1" fill="currentColor"/></g>
+    <g id="ic-sushi"><ellipse cx="12" cy="14" rx="8.5" ry="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 11.5C6.5 7.5 9 6 12 6s5.5 1.500 6.500 5.500" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 9.500c1-.7 2-1 3-1s2 .3 3 1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></g>
+    <g id="ic-plate"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4.8" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></g>
+    <g id="ic-party"><path d="M12 3.500c3 0 5 2.300 5 5 0 3-2.200 5.300-5 6.500-2.800-1.200-5-3.500-5-6.500 0-2.700 2-5 5-5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 15v3.500M10.500 20.500h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></g>
+    <g id="ic-flame"><path d="M12 21c-3.500 0-6-2.400-6-5.800 0-2.700 1.800-4 2.600-6.400.6 1 1 1.800 1 2.800 0-3 1.200-5.600 3.400-7.300.6 2 .5 3.600 1.600 5 1 1.300 3.400 2.600 3.400 5.900 0 3.400-2.500 5.800-6 5.800Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></g>
+    <g id="ic-clock"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.500V12l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></g>
+    <g id="ic-phone"><path d="M7 3h3l1.500 4L9.500 8.500c.8 2.300 2.700 4.200 5 5l1.500-2L20 13v3a2 2 0 0 1-2.200 2C11.500 17.600 6.400 12.500 5.900 6.200A2 2 0 0 1 7 3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></g>
+    <g id="ic-pin"><path d="M12 21s-7-7.200-7-12a7 7 0 1 1 14 0c0 4.800-7 12-7 12Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.400" fill="none" stroke="currentColor" stroke-width="1.5"/></g>
+    <g id="ic-ig"><rect x="3.500" y="3.500" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4.300" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.200" cy="6.800" r="1.100" fill="currentColor"/></g>
+    <g id="ic-arrow"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g id="ic-sun"><circle cx="12" cy="12" r="4.200" fill="none" stroke="currentColor" stroke-width="1.5"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2.500" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.500"/><line x1="2.500" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.500" y2="12"/><line x1="5.100" y1="5.100" x2="6.800" y2="6.800"/><line x1="17.200" y1="17.200" x2="18.900" y2="18.900"/><line x1="5.100" y1="18.900" x2="6.800" y2="17.200"/><line x1="17.200" y1="6.800" x2="18.900" y2="5.100"/></g></g>
+    <g id="ic-moon"><path d="M20 14.200A8.200 8.200 0 1 1 9.800 4a6.600 6.600 0 0 0 10.200 10.200Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></g>
+    <g id="ic-pause"><rect x="6" y="4.500" width="4.500" height="15" rx="1" fill="currentColor"/><rect x="13.500" y="4.500" width="4.500" height="15" rx="1" fill="currentColor"/></g>
+    <g id="ic-play"><path d="M6 4.500v15l14-7.500z" fill="currentColor"/></g>
+  </defs>
+</svg>
+
+<a id="home"></a>
+<header>
+  <div class="wrap nav-row">
+    <a class="brand" href="#home" aria-label="Laivu Māja">
+      <img src="logo.svg" alt="" class="brand-logo" width="46" height="46">
+      <span class="brand-word">Laivu Māja<small data-i18n="slogan">Kafejnīca · Picērija</small></span>
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <a href="#about" data-i18n="nav.about">Par mums</a>
+      <a href="#menu" data-i18n="nav.menu">Ēdienkarte</a>
+      <a href="#offers" data-i18n="nav.offers">Piedāvājumi</a>
+      <a href="#contact" data-i18n="nav.contact">Kontakti</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="lv" aria-pressed="true">LV</button>
+        <button data-lang="ru" aria-pressed="false">RU</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="icon-btn" id="themeToggle" aria-label="Dark mode" aria-pressed="false">
+        <svg viewBox="0 0 24 24" id="themeIcon"><use href="#ic-moon"/></svg>
+      </button>
+      <a class="btn btn-solid btn-sm" href="tel:+37122880022"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><span data-i18n="cta_call">Zvanīt</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile" aria-hidden="true">
+  <a class="m-link" style="--i:0" href="#about" data-i18n="nav.about">Par mums</a>
+  <a class="m-link" style="--i:1" href="#menu" data-i18n="nav.menu">Ēdienkarte</a>
+  <a class="m-link" style="--i:2" href="#offers" data-i18n="nav.offers">Piedāvājumi</a>
+  <a class="m-link" style="--i:3" href="#contact" data-i18n="nav.contact">Kontakti</a>
+  <div class="m-extra" style="--i:4">
+    <div class="lang-switch" role="group" aria-label="Language" style="display:flex;">
+      <button data-lang="lv" aria-pressed="true">LV</button>
+      <button data-lang="ru" aria-pressed="false">RU</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn-solid btn-sm" href="tel:+37122880022"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><span data-i18n="cta_call">Zvanīt</span></a>
+  </div>
+  <p class="m-contact"><a href="tel:+37122880022">+371 22 880 022</a> &nbsp;|&nbsp; <span data-i18n="hours_short">Katru dienu 11:00-20:00</span></p>
+</nav>
+
+<main id="main">
+
+  <section class="hero">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="https://assets.mixkit.co/videos/42481/42481-thumb-720-0.jpg">
+      <source src="https://assets.mixkit.co/videos/42481/42481-720.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="kicker" data-i18n="hero_kicker">Ezera iela 5, Rēzekne</span>
+        <h1 data-i18n="hero_title">Malkas krāsnī cepta pica un svaigi suši</h1>
+        <p class="lede" data-i18n="hero_lede">Laivu Māja - kafejnīca un picērija Rēzeknē. Garša, pēc kuras atgriežas.</p>
+        <div class="hero-chips">
+          <span class="chip"><svg viewBox="0 0 24 24"><use href="#ic-flame"/></svg><span data-i18n="chip1">Malkas krāsns pica</span></span>
+          <span class="chip"><svg viewBox="0 0 24 24"><use href="#ic-sushi"/></svg><span data-i18n="chip2">Svaigi suši katru dienu</span></span>
+          <span class="chip"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><span data-i18n="chip3">Katru dienu 11:00-20:00</span></span>
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-solid" href="tel:+37122880022"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><span data-i18n="cta_order">Pasūtīt: 22 880 022</span></a>
+          <a class="btn btn-line" href="#menu"><span data-i18n="cta_menu">Skatīt ēdienkarti</span><svg viewBox="0 0 24 24"><use href="#ic-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <button class="hero-pause" id="heroPause" aria-label="Pause background video" aria-pressed="false">
+      <svg viewBox="0 0 24 24" id="heroPauseIcon"><use href="#ic-pause"/></svg>
+    </button>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <span class="strip-item"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg><span data-i18n="strip_hours">Katru dienu 11:00-20:00</span></span>
+      <span class="strip-item"><svg viewBox="0 0 24 24"><use href="#ic-pin"/></svg><span>Ezera iela 5, Rēzekne</span></span>
+      <span class="strip-item"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><a href="tel:+37122880022">+371 22 880 022</a></span>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <span class="kicker" data-i18n="about_kicker">Par mums</span>
+        <h2 data-i18n="about_title">Kafejnīca un picērija ar uguns garšu</h2>
+        <p class="about-text" data-i18n="about_p1">Laivu Māja ir kafejnīca un picērija Rēzeknē, kas darbojas kopš 2022. gada. Mūsu pica tiek cepta malkas krāsnī, bet suši gatavojam svaigi katru dienu.</p>
+        <p class="about-text" data-i18n="about_p2">Nāciet uz vietas vai pasūtiet līdzņemšanai - picas iepakojam kastēs, lai garša nonāk pie jums tikpat karsta.</p>
+        <p class="about-note" data-i18n="about_note">Garša, pēc kuras atgriežas.</p>
+      </div>
+      <div class="fact-card reveal">
+        <div class="fact"><span class="fact-ic"><svg viewBox="0 0 24 24"><use href="#ic-flame"/></svg></span><div><h3 data-i18n="fact1_t">Malkas krāsns</h3><p data-i18n="fact1_d">Pica tiek cepta malkas krāsnī - kraukšķīga mala un īsta uguns garša.</p></div></div>
+        <div class="fact"><span class="fact-ic"><svg viewBox="0 0 24 24"><use href="#ic-sushi"/></svg></span><div><h3 data-i18n="fact2_t">Svaigi suši</h3><p data-i18n="fact2_d">Suši gatavojam svaigi katru dienu.</p></div></div>
+        <div class="fact"><span class="fact-ic"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg></span><div><h3 data-i18n="fact3_t">Katru dienu</h3><p data-i18n="fact3_d">Atvērti no 11:00 līdz 20:00, pirmdiena - svētdiena.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="panel">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="menu_kicker">Ēdienkarte</span>
+        <h2 data-i18n="menu_title">Ko pasūtīt</h2>
+        <p data-i18n="menu_sub">Pica, suši un uzkodas - uz vietas vai līdzņemšanai.</p>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-icon"><svg viewBox="0 0 24 24"><use href="#ic-pizza"/></svg></div>
+          <h3 data-i18n="m1_t">Pica malkas krāsnī</h3>
+          <p data-i18n="m1_d">Cepta malkas krāsnī, pieejama arī līdzņemšanai kastē.</p>
+          <ul class="tags" id="pizzaTags"></ul>
+        </div>
+        <div class="menu-card">
+          <div class="menu-icon"><svg viewBox="0 0 24 24"><use href="#ic-sushi"/></svg></div>
+          <h3 data-i18n="m2_t">Suši</h3>
+          <p data-i18n="m2_d">Svaigi suši katru dienu - klasiskie rullīši, cepti panējumā un suši seti.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-icon"><svg viewBox="0 0 24 24"><use href="#ic-plate"/></svg></div>
+          <h3 data-i18n="m3_t">Uzkodu plates</h3>
+          <p data-i18n="m3_d">Uzkodu plates kompānijai un svinībām - jautājiet par iespējām.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-icon"><svg viewBox="0 0 24 24"><use href="#ic-party"/></svg></div>
+          <h3 data-i18n="m4_t">Bērnu ballītes</h3>
+          <p data-i18n="m4_d">Bērnu ballītes un svinības - sazinieties, lai vienotos par detaļām.</p>
+        </div>
+      </div>
+      <div class="wrap"><p class="menu-note" data-i18n="menu_note">Pilnu ēdienkarti un aktuālās cenas noskaidrojiet pa tālruni vai mūsu Instagram.</p></div>
+    </div>
+  </section>
+
+  <section id="offers">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="offers_kicker">Piedāvājumi</span>
+        <h2 data-i18n="offers_title">Izdevīgi ēst pie mums</h2>
+        <p data-i18n="offers_sub">Daži no mūsu iecienītākajiem piedāvājumiem.</p>
+      </div>
+      <div class="offer-grid">
+        <article class="offer reveal">
+          <span class="tag" data-i18n="o1_tag">Līdzņemšanai</span>
+          <h3 data-i18n="o1_t">Picas līdzņemšanai</h3>
+          <p data-i18n="o1_d">Mūsu picas pieejamas līdzņemšanai ar izdevīgām piedāvājuma cenām.</p>
+          <div class="big">+ 1 &euro;</div>
+          <p data-i18n="o1_big">par kasti</p>
+          <p class="meta" data-i18n="o1_meta">Pašreizējās cenas noskaidrojiet pa tālruni.</p>
+        </article>
+        <article class="offer reveal">
+          <span class="tag" data-i18n="o2_tag">Suši</span>
+          <h3 data-i18n="o2_t">Cepti suši panējumā 1+1</h3>
+          <p data-i18n="o2_d">Pērciet vienu - saņemiet otru.</p>
+          <div class="big">1 + 1</div>
+          <p data-i18n="o2_big">cepti suši panējumā</p>
+          <p class="meta" data-i18n="o2_meta">No pirmdienas līdz ceturtdienai, 11:00-18:00.</p>
+        </article>
+        <article class="offer reveal">
+          <span class="tag" data-i18n="o3_tag">Ģimenei</span>
+          <h3 data-i18n="o3_t">Ģimenes akcija</h3>
+          <p data-i18n="o3_d">Siera pica, Capriciosa pica, Netflix Hot Set (krabju nūjiņa, garnele, vista) 24 gab. un 2 Coca-Cola.</p>
+          <div class="big">34,99 &euro;</div>
+          <p data-i18n="o3_big">visam komplektam</p>
+          <p class="meta" data-i18n="o3_meta">Jautājiet par pieejamību pirms pasūtīšanas.</p>
+        </article>
+      </div>
+      <p class="offer-note" data-i18n="offers_note">Akcijas un cenas var mainīties - aktuālo informāciju skatiet Instagram vai noskaidrojiet pa tālruni.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="panel">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <span class="kicker" data-i18n="contact_kicker">Kontakti</span>
+        <h2 class="contact-title" data-i18n="contact_title">Pasūtiet vai iegriezieties</h2>
+        <p class="contact-lede" data-i18n="contact_lede">Zvaniet un pasūtiet līdzņemšanai vai nāciet uz vietas - esam atvērti katru dienu.</p>
+        <div class="info-list">
+          <div class="info-item"><span class="label" data-i18n="lbl_address">Adrese</span><span class="value">Ezera iela 5, Rēzekne</span></div>
+          <div class="info-item"><span class="label" data-i18n="lbl_phone">Tālrunis</span><span class="value"><a href="tel:+37122880022">+371 22 880 022</a></span></div>
+          <div class="info-item"><span class="label" data-i18n="lbl_hours">Darba laiks</span><span class="value" data-i18n="hours_long">Pirmdiena - svētdiena, 11:00-20:00</span></div>
+          <div class="info-item"><span class="label">Instagram</span><span class="value"><a href="https://www.instagram.com/laivu.maja" target="_blank" rel="noopener">@laivu.maja</a></span></div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&query=Ezera+iela+5+R%C4%93zekne" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ic-pin"/></svg><span data-i18n="map_btn">Apskatīt kartē</span></a>
+          <a class="btn btn-line" href="https://www.instagram.com/laivu.maja" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#ic-ig"/></svg><span>Instagram</span></a>
+        </div>
+      </div>
+      <div class="call-card reveal">
+        <span class="kicker" data-i18n="call_kicker">Pasūtījumi</span>
+        <h3 data-i18n="call_title">Zvaniet un pasūtiet</h3>
+        <a class="call-num" href="tel:+37122880022">22 880 022</a>
+        <p data-i18n="call_text">Katru dienu no 11:00 līdz 20:00 - pica, suši un uzkodas uz vietas vai līdzņemšanai.</p>
+        <a class="btn btn-solid" href="tel:+37122880022"><svg viewBox="0 0 24 24"><use href="#ic-phone"/></svg><span data-i18n="cta_call">Zvanīt</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-main">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#home" aria-label="Laivu Māja">
+          <img src="logo.svg" alt="" class="brand-logo" width="46" height="46">
+          <span class="brand-word">Laivu Māja</span>
+        </a>
+        <p data-i18n="footer_tag">Laivu Māja - kafejnīca un picērija Rēzeknē. Est. 2022.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4 data-i18n="nav.menu">Ēdienkarte</h4>
+          <a href="#menu" data-i18n="m1_t">Pica malkas krāsnī</a>
+          <a href="#menu" data-i18n="m2_t">Suši</a>
+          <a href="#offers" data-i18n="nav.offers">Piedāvājumi</a>
+        </div>
+        <div>
+          <h4 data-i18n="nav.contact">Kontakti</h4>
+          <a href="tel:+37122880022">+371 22 880 022</a>
+          <a href="https://www.instagram.com/laivu.maja" target="_blank" rel="noopener">Instagram</a>
+          <span style="color:var(--ink-soft);font-size:.92rem;">Ezera iela 5, Rēzekne</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="yr">2026</span> Laivu Māja. <span data-i18n="footer_rights">Visas tiesības aizsargātas.</span></span>
+      <div class="footer-lang" role="group" aria-label="Language">
+        <button data-lang="lv" aria-pressed="true">LV</button>
+        <button data-lang="ru" aria-pressed="false">RU</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var T = {
+    lv: {
+      skip:"Pāriet uz saturu", slogan:"Kafejnīca · Picērija",
+      "nav.about":"Par mums","nav.menu":"Ēdienkarte","nav.offers":"Piedāvājumi","nav.contact":"Kontakti",
+      cta_call:"Zvanīt", cta_order:"Pasūtīt: 22 880 022", cta_menu:"Skatīt ēdienkarti",
+      theme_dark:"Tumšais režīms", theme_light:"Gaišais režīms",
+      menu_open:"Atvērt izvēlni", menu_close:"Aizvērt izvēlni",
+      video_pause:"Apturēt fona video", video_play:"Atskaņot fona video",
+      hours_short:"Katru dienu 11:00-20:00", strip_hours:"Katru dienu 11:00-20:00",
+      hero_kicker:"Ezera iela 5, Rēzekne",
+      hero_title:"Malkas krāsnī cepta pica un svaigi suši",
+      hero_lede:"Laivu Māja - kafejnīca un picērija Rēzeknē. Garša, pēc kuras atgriežas.",
+      chip1:"Malkas krāsns pica", chip2:"Svaigi suši katru dienu", chip3:"Katru dienu 11:00-20:00",
+      about_kicker:"Par mums", about_title:"Kafejnīca un picērija ar uguns garšu",
+      about_p1:"Laivu Māja ir kafejnīca un picērija Rēzeknē, kas darbojas kopš 2022. gada. Mūsu pica tiek cepta malkas krāsnī, bet suši gatavojam svaigi katru dienu.",
+      about_p2:"Nāciet uz vietas vai pasūtiet līdzņemšanai - picas iepakojam kastēs, lai garša nonāk pie jums tikpat karsta.",
+      about_note:"Garša, pēc kuras atgriežas.",
+      fact1_t:"Malkas krāsns", fact1_d:"Pica tiek cepta malkas krāsnī - kraukšķīga mala un īsta uguns garša.",
+      fact2_t:"Svaigi suši", fact2_d:"Suši gatavojam svaigi katru dienu.",
+      fact3_t:"Katru dienu", fact3_d:"Atvērti no 11:00 līdz 20:00, pirmdiena - svētdiena.",
+      menu_kicker:"Ēdienkarte", menu_title:"Ko pasūtīt", menu_sub:"Pica, suši un uzkodas - uz vietas vai līdzņemšanai.",
+      m1_t:"Pica malkas krāsnī", m1_d:"Cepta malkas krāsnī, pieejama arī līdzņemšanai kastē.",
+      pizzas:["Siera","Salami","Sēņu","Capriciosa","Kebaba","Meksikāņu","Premium","Tunča","Vīriešu","Vistas ananāsu","5 sieru"],
+      m2_t:"Suši", m2_d:"Svaigi suši katru dienu - klasiskie rullīši, cepti panējumā un suši seti.",
+      m3_t:"Uzkodu plates", m3_d:"Uzkodu plates kompānijai un svinībām - jautājiet par iespējām.",
+      m4_t:"Bērnu ballītes", m4_d:"Bērnu ballītes un svinības - sazinieties, lai vienotos par detaļām.",
+      menu_note:"Pilnu ēdienkarti un aktuālās cenas noskaidrojiet pa tālruni vai mūsu Instagram.",
+      offers_kicker:"Piedāvājumi", offers_title:"Izdevīgi ēst pie mums", offers_sub:"Daži no mūsu iecienītākajiem piedāvājumiem.",
+      o1_tag:"Līdzņemšanai", o1_t:"Picas līdzņemšanai", o1_d:"Mūsu picas pieejamas līdzņemšanai ar izdevīgām piedāvājuma cenām.", o1_big:"par kasti", o1_meta:"Pašreizējās cenas noskaidrojiet pa tālruni.",
+      o2_tag:"Suši", o2_t:"Cepti suši panējumā 1+1", o2_d:"Pērciet vienu - saņemiet otru.", o2_big:"cepti suši panējumā", o2_meta:"No pirmdienas līdz ceturtdienai, 11:00-18:00.",
+      o3_tag:"Ģimenei", o3_t:"Ģimenes akcija", o3_d:"Siera pica, Capriciosa pica, Netflix Hot Set (krabju nūjiņa, garnele, vista) 24 gab. un 2 Coca-Cola.", o3_big:"visam komplektam", o3_meta:"Jautājiet par pieejamību pirms pasūtīšanas.",
+      offers_note:"Akcijas un cenas var mainīties - aktuālo informāciju skatiet Instagram vai noskaidrojiet pa tālruni.",
+      contact_kicker:"Kontakti", contact_title:"Pasūtiet vai iegriezieties", contact_lede:"Zvaniet un pasūtiet līdzņemšanai vai nāciet uz vietas - esam atvērti katru dienu.",
+      lbl_address:"Adrese", lbl_phone:"Tālrunis", lbl_hours:"Darba laiks", hours_long:"Pirmdiena - svētdiena, 11:00-20:00", map_btn:"Apskatīt kartē",
+      call_kicker:"Pasūtījumi", call_title:"Zvaniet un pasūtiet", call_text:"Katru dienu no 11:00 līdz 20:00 - pica, suši un uzkodas uz vietas vai līdzņemšanai.",
+      footer_tag:"Laivu Māja - kafejnīca un picērija Rēzeknē. Est. 2022.", footer_rights:"Visas tiesības aizsargātas.",
+      page_title:"Laivu Māja - kafejnīca un picērija, Rēzekne"
+    },
+    ru: {
+      skip:"К содержанию", slogan:"Кафе · Пиццерия",
+      "nav.about":"О нас","nav.menu":"Меню","nav.offers":"Предложения","nav.contact":"Контакты",
+      cta_call:"Позвонить", cta_order:"Заказать: 22 880 022", cta_menu:"Смотреть меню",
+      theme_dark:"Тёмная тема", theme_light:"Светлая тема",
+      menu_open:"Открыть меню", menu_close:"Закрыть меню",
+      video_pause:"Остановить фоновое видео", video_play:"Воспроизвести фоновое видео",
+      hours_short:"Ежедневно 11:00-20:00", strip_hours:"Ежедневно 11:00-20:00",
+      hero_kicker:"Ул. Езера 5, Резекне",
+      hero_title:"Пицца из дровяной печи и свежие суши",
+      hero_lede:"Laivu Māja - кафе и пиццерия в Резекне. Вкус, к которому хочется возвращаться.",
+      chip1:"Пицца из дровяной печи", chip2:"Свежие суши каждый день", chip3:"Ежедневно 11:00-20:00",
+      about_kicker:"О нас", about_title:"Кафе и пиццерия со вкусом огня",
+      about_p1:"Laivu Māja - кафе и пиццерия в Резекне, работаем с 2022 года. Наша пицца печётся в дровяной печи, а суши мы готовим свежими каждый день.",
+      about_p2:"Приходите к нам или заказывайте с собой - пиццу упаковываем в коробки, чтобы вкус доехал таким же горячим.",
+      about_note:"Вкус, к которому хочется возвращаться.",
+      fact1_t:"Дровяная печь", fact1_d:"Пицца печётся в дровяной печи - хрустящий бортик и настоящий вкус огня.",
+      fact2_t:"Свежие суши", fact2_d:"Суши готовим свежими каждый день.",
+      fact3_t:"Каждый день", fact3_d:"Открыты с 11:00 до 20:00, с понедельника по воскресенье.",
+      menu_kicker:"Меню", menu_title:"Что заказать", menu_sub:"Пицца, суши и закуски - на месте или с собой.",
+      m1_t:"Пицца из дровяной печи", m1_d:"Печётся в дровяной печи, доступна также с собой в коробке.",
+      pizzas:["Сырная","Салями","Грибная","Капричоза","Кебаб","Мексиканская","Premium","С тунцом","«Мужская»","Курица-ананас","5 сыров"],
+      m2_t:"Суши", m2_d:"Свежие суши каждый день - классические роллы, запечённые в панировке и сеты.",
+      m3_t:"Тарелки закусок", m3_d:"Тарелки закусок для компании и праздников - уточняйте возможности.",
+      m4_t:"Детские праздники", m4_d:"Детские праздники и торжества - свяжитесь, чтобы договориться о деталях.",
+      menu_note:"Полное меню и актуальные цены уточняйте по телефону или в нашем Instagram.",
+      offers_kicker:"Предложения", offers_title:"Выгодно поесть у нас", offers_sub:"Несколько наших любимых предложений.",
+      o1_tag:"С собой", o1_t:"Пицца с собой", o1_d:"Наша пицца доступна с собой по выгодным акционным ценам.", o1_big:"за коробку", o1_meta:"Актуальные цены уточняйте по телефону.",
+      o2_tag:"Суши", o2_t:"Суши в панировке 1+1", o2_d:"Покупайте одни - получайте вторые.", o2_big:"запечённые суши в панировке", o2_meta:"С понедельника по четверг, 11:00-18:00.",
+      o3_tag:"Для семьи", o3_t:"Семейная акция", o3_d:"Сырная пицца, пицца Капричоза, Netflix Hot Set (крабовая палочка, креветка, курица) 24 шт. и 2 Coca-Cola.", o3_big:"за весь набор", o3_meta:"Уточняйте наличие перед заказом.",
+      offers_note:"Акции и цены могут меняться - актуальную информацию смотрите в Instagram или уточняйте по телефону.",
+      contact_kicker:"Контакты", contact_title:"Заказывайте или заходите", contact_lede:"Звоните и заказывайте с собой или приходите к нам - мы открыты каждый день.",
+      lbl_address:"Адрес", lbl_phone:"Телефон", lbl_hours:"Часы работы", hours_long:"Понедельник - воскресенье, 11:00-20:00", map_btn:"Смотреть на карте",
+      call_kicker:"Заказы", call_title:"Звоните и заказывайте", call_text:"Ежедневно с 11:00 до 20:00 - пицца, суши и закуски на месте или с собой.",
+      footer_tag:"Laivu Māja - кафе и пиццерия в Резекне. Est. 2022.", footer_rights:"Все права защищены.",
+      page_title:"Laivu Māja - кафе и пиццерия, Резекне"
+    },
+    en: {
+      skip:"Skip to content", slogan:"Cafe · Pizzeria",
+      "nav.about":"About","nav.menu":"Menu","nav.offers":"Offers","nav.contact":"Contact",
+      cta_call:"Call", cta_order:"Order: 22 880 022", cta_menu:"View the menu",
+      theme_dark:"Dark mode", theme_light:"Light mode",
+      menu_open:"Open menu", menu_close:"Close menu",
+      video_pause:"Pause background video", video_play:"Play background video",
+      hours_short:"Daily 11:00-20:00", strip_hours:"Daily 11:00-20:00",
+      hero_kicker:"Ezera iela 5, Rēzekne",
+      hero_title:"Wood-fired pizza and fresh sushi",
+      hero_lede:"Laivu Māja - a cafe and pizzeria in Rēzekne. Taste you come back for.",
+      chip1:"Wood-fired pizza", chip2:"Fresh sushi every day", chip3:"Daily 11:00-20:00",
+      about_kicker:"About us", about_title:"A cafe and pizzeria with the taste of fire",
+      about_p1:"Laivu Māja is a cafe and pizzeria in Rēzekne, open since 2022. Our pizza is baked in a wood-fired oven and we make sushi fresh every day.",
+      about_p2:"Come and eat with us or order to take away - we pack our pizzas in boxes so the taste reaches you just as hot.",
+      about_note:"Taste you come back for.",
+      fact1_t:"Wood-fired oven", fact1_d:"Pizza is baked in a wood-fired oven - a crisp edge and a real taste of fire.",
+      fact2_t:"Fresh sushi", fact2_d:"We make sushi fresh every day.",
+      fact3_t:"Every day", fact3_d:"Open from 11:00 to 20:00, Monday to Sunday.",
+      menu_kicker:"Menu", menu_title:"What to order", menu_sub:"Pizza, sushi and snacks - eat in or take away.",
+      m1_t:"Wood-fired pizza", m1_d:"Baked in a wood-fired oven, also available to take away in a box.",
+      pizzas:["Cheese","Salami","Mushroom","Capriciosa","Kebab","Mexican","Premium","Tuna","“Men’s”","Chicken & pineapple","5 cheeses"],
+      m2_t:"Sushi", m2_d:"Fresh sushi every day - classic rolls, breaded fried rolls and sushi sets.",
+      m3_t:"Snack platters", m3_d:"Snack platters for company and celebrations - ask about the options.",
+      m4_t:"Kids’ parties", m4_d:"Children’s parties and celebrations - get in touch to agree the details.",
+      menu_note:"Ask for the full menu and current prices by phone or on our Instagram.",
+      offers_kicker:"Offers", offers_title:"Good value at our table", offers_sub:"A few of our favourite offers.",
+      o1_tag:"Takeaway", o1_t:"Pizza to take away", o1_d:"Our pizzas are available to take away at special offer prices.", o1_big:"per box", o1_meta:"Ask by phone for current prices.",
+      o2_tag:"Sushi", o2_t:"Breaded fried sushi 1+1", o2_d:"Buy one - get one free.", o2_big:"breaded fried sushi", o2_meta:"Monday to Thursday, 11:00-18:00.",
+      o3_tag:"For the family", o3_t:"Family offer", o3_d:"Cheese pizza, Capriciosa pizza, Netflix Hot Set (crab stick, shrimp, chicken) 24 pcs and 2 Coca-Cola.", o3_big:"for the whole set", o3_meta:"Ask about availability before ordering.",
+      offers_note:"Offers and prices can change - see Instagram for the latest or ask by phone.",
+      contact_kicker:"Contact", contact_title:"Order or drop by", contact_lede:"Call to order takeaway or come and eat with us - we are open every day.",
+      lbl_address:"Address", lbl_phone:"Phone", lbl_hours:"Opening hours", hours_long:"Monday - Sunday, 11:00-20:00", map_btn:"View on map",
+      call_kicker:"Orders", call_title:"Call and order", call_text:"Daily from 11:00 to 20:00 - pizza, sushi and snacks to eat in or take away.",
+      footer_tag:"Laivu Māja - a cafe and pizzeria in Rēzekne. Est. 2022.", footer_rights:"All rights reserved.",
+      page_title:"Laivu Māja - cafe and pizzeria, Rēzekne"
+    }
+  };
+
+  var htmlEl = document.documentElement;
+  var currentLang = 'lv';
+  var pageTitleEl = document.getElementById('pageTitle');
+
+  function getTheme(){ return htmlEl.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+
+  function renderPizzas(){
+    var ul = document.getElementById('pizzaTags');
+    ul.innerHTML = '';
+    T[currentLang].pizzas.forEach(function(n){ var li = document.createElement('li'); li.textContent = n; ul.appendChild(li); });
+  }
+
+  function refreshLabels(){
+    var d = T[currentLang];
+    var theme = getTheme();
+    var tt = document.getElementById('themeToggle');
+    tt.setAttribute('aria-label', theme === 'dark' ? d.theme_light : d.theme_dark);
+    tt.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    document.getElementById('themeIcon').innerHTML = '<use href="' + (theme === 'dark' ? '#ic-sun' : '#ic-moon') + '"></use>';
+    var mt = document.getElementById('menuToggle');
+    mt.setAttribute('aria-label', mt.getAttribute('aria-expanded') === 'true' ? d.menu_close : d.menu_open);
+    var vid = document.getElementById('heroVideo');
+    document.getElementById('heroPause').setAttribute('aria-label', vid.paused ? d.video_play : d.video_pause);
+  }
+
+  function applyLang(lang){
+    if(!T[lang]) lang = 'lv';
+    currentLang = lang;
+    var d = T[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(d[k] !== undefined) el.textContent = d[k];
+    });
+    renderPizzas();
+    document.querySelectorAll('[data-lang]').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+    htmlEl.setAttribute('lang', lang);
+    if(pageTitleEl) pageTitleEl.textContent = d.page_title;
+    try{ localStorage.setItem('lm-lang', lang); }catch(e){}
+    refreshLabels();
+  }
+
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var next = getTheme() === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', next);
+    try{ localStorage.setItem('lm-theme', next); }catch(e){}
+    refreshLabels();
+  });
+
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  function setMenu(open){
+    mobileNav.classList.toggle('open', open);
+    mobileNav.setAttribute('aria-hidden', open ? 'false' : 'true');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+    refreshLabels();
+  }
+  menuToggle.addEventListener('click', function(){ setMenu(!mobileNav.classList.contains('open')); });
+  mobileNav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && mobileNav.classList.contains('open')) setMenu(false); });
+  window.addEventListener('resize', function(){ if(window.innerWidth >= 1024 && mobileNav.classList.contains('open')) setMenu(false); });
+
+  var vid = document.getElementById('heroVideo');
+  var pauseBtn = document.getElementById('heroPause');
+  var pauseIcon = document.getElementById('heroPauseIcon');
+  function setPauseIcon(){ pauseIcon.innerHTML = '<use href="' + (vid.paused ? '#ic-play' : '#ic-pause') + '"></use>'; pauseBtn.setAttribute('aria-pressed', vid.paused ? 'true' : 'false'); refreshLabels(); }
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ try{ vid.pause(); }catch(e){} }
+  pauseBtn.addEventListener('click', function(){
+    if(vid.paused){ var p = vid.play(); if(p && p.catch) p.catch(function(){}); } else { vid.pause(); }
+    setPauseIcon();
+  });
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var saved = 'lv';
+  try{ saved = localStorage.getItem('lm-lang') || 'lv'; }catch(e){}
+  applyLang(saved);
+  setPauseIcon();
+})();
+</script>
+
+</body>
+</html>
